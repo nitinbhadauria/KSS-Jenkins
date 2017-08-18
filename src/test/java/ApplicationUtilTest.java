@@ -17,7 +17,7 @@ public class ApplicationUtilTest {
 
   @Test
   public void firstTest(){
-    Assert.assertEquals(applicationUtil.sum(1,2),3);
+    Assert.assertEquals(applicationUtil.sum(1,2),1);
   }
 
   @Test
