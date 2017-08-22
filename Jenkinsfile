@@ -83,6 +83,7 @@ triggers { cron('*/1 * * * *') }
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 	      image.push (env.BRANCH_NAME)
+															}
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
@@ -90,12 +91,11 @@ triggers { cron('*/1 * * * *') }
         }
   }
         catch(err) {
+		echo "Input Not Given or Timed Out"
                 err.printStackTrace()
                                                 }
-                sh 'echo Pushing Image'
                }
 
-}
 }
 }
 
@@ -117,9 +117,12 @@ triggers { cron('*/1 * * * *') }
     }
 
 }
-
-	 stage("deploy") {
-      agent any
+	stage("deploy_on_production") {
+      	 agent any
+	 when {
+		branch 'production'
+		}
+	
       steps {
         sh '. /var/lib/jenkins/deploy.sh'
       }
