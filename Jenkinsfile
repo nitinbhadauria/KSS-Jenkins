@@ -70,13 +70,8 @@ triggers { cron('*/1 * * * *') }
       agent any
 
 	when	 { 
-		branch 'prakashul-qa'
+		expression { return branch production || staging }
 	    	 }	
-
-	or 	{
-
-		branch 'staging'
- 		}
 
         steps {
 		unstash 'artifactStash'
