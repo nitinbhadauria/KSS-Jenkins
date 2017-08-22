@@ -58,7 +58,7 @@ triggers { cron('*/1 * * * *') }
 		branch 'prakashul-qa' 
 		}
 		steps {
-                archive "target/**/*"
+                archive "target/KSS-Jenkins-1.0-SNAPSHOT.jar"
                                 }
 
 
