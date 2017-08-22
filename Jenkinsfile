@@ -71,7 +71,8 @@ triggers { cron('*/1 * * * *') }
 
 	when {
 	  expression {
-	    return env.BRANCH_NAME == "production"
+	    // return env.BRANCH_NAME != "production"
+	    branch 'production'
 	  }
 	}
         steps {
