@@ -81,7 +81,7 @@ triggers { cron('*/1 * * * *') }
                 script {
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
-              image.push('production}')
+              image.push('latest}')
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
