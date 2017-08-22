@@ -65,7 +65,7 @@ triggers { cron('*/1 * * * *') }
                 }
 
 
-    stage("build_push_image") {
+    stage("build_image") {
 
       agent any
 
@@ -81,6 +81,8 @@ triggers { cron('*/1 * * * *') }
                 script {
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
+		stash 
+	      image.push ('staging')
               image.push('production')
 
         try {
