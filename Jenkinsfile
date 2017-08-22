@@ -70,7 +70,7 @@ triggers { cron('*/1 * * * *') }
       agent any
 
 	when	 { 
-		expression { return branch ! production }
+		expression { return branch ! 'production' }
 	    	 }	
 
         steps {
