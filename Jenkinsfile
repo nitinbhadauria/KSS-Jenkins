@@ -58,7 +58,7 @@ triggers { cron('*/1 * * * *') }
 		branch 'prakashul-qa' 
 		}
 		steps {
-                archive "target/KSS-Jenkins-1.0-SNAPSHOT.jar"
+                archive "target/**/*"
                                 }
 
 
@@ -82,7 +82,7 @@ triggers { cron('*/1 * * * *') }
                 script {
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
-	      image.push (${env.BRANCH_NAME})
+	      image.push (env.BRANCH_NAME)
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
