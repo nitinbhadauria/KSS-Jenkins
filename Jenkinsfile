@@ -70,7 +70,9 @@ triggers { cron('*/1 * * * *') }
       agent any
 
 	when	 { 
-		 env.BRANCH_NAME not 'production' 
+		"not": [
+        { "branch": "production" }
+    ]
 	    	 }	
 
         steps {
