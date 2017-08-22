@@ -83,17 +83,16 @@ triggers { cron('*/1 * * * *') }
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 	      image.push (env.BRANCH_NAME)
-		stash includes: 'prakashul/knowledgemeet:${env.BUILD_ID}', name: 'dockerImage'
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
-        input 'Do you want to proceed to the Deployment?'
+        input 'Do you want to proceed to pushing the docker image to production?'
         }
   }
         catch(err) {
                 err.printStackTrace()
                                                 }
-                sh 'echo Proceeding To Deployment'
+                sh 'echo Pushing Image'
                }
 
 }
@@ -109,9 +108,8 @@ triggers { cron('*/1 * * * *') }
       steps {
 
 		unstash 'dockerImage'
-		script {
-		docker.push('dockerImage')
-			}
+		docker.image("prakashul/knowledgemeet:${env.BUILD_ID}").push('production')
+	
 	}
 	
 
