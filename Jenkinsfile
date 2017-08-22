@@ -65,16 +65,18 @@ triggers { cron('*/1 * * * *') }
                 }
 
 
-
-
     stage("build_push_image") {
 
       agent any
 
-//	when {
-  //              expression { params.REQUESTED_ACTION == 'prakashul-qa' }
-    //        }
+	when	 { 
+		branch 'prakashul-qa'
+	    	 }	
 
+	or 	{
+
+		branch 'staging'
+ 		}
 
         steps {
 		unstash 'artifactStash'
