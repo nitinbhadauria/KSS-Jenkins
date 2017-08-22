@@ -85,14 +85,15 @@ triggers { cron('*/1 * * * *') }
 	      image.push (env.BRANCH_NAME)
 
         try {
+	
         timeout(time: 20, unit: 'SECONDS') {
-        input 'Do you want to proceed to pushing the docker image to production?'
         }
   }
         catch(err) {
-		echo "Input Not Given or Timed Out"
+		echo "Image push took long or there was an error"
                 err.printStackTrace()
                                                 }
+		echo "Continuing..."
                }
 
 }
@@ -111,16 +112,27 @@ triggers { cron('*/1 * * * *') }
 		script {
 		docker.push('prakashul/knowledgemeet:staging')
 			}
+																}
+		input 'Do you want to proceed to pushing the docker image to production?'
+		script {
+		 try {
+        
+		        timeout(time: 20, unit: 'SECONDS') {
+       								 }			
+  			}
+        catch(err) { 
+                echo "Deploy To Production was not approved"
+                err.printStackTrace()
+                                                }
+
 	}
 	
-
-    }
 
 }
 	stage("deploy_on_production") {
       	 agent any
 	 when {
-		branch 'production'
+		branch 'staging'
 		}
 	
       steps {
