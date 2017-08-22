@@ -103,8 +103,8 @@ triggers { cron('*/1 * * * *') }
     stage("push_image_to_production") {
       agent any
 	when {
-		branch 'prakashul-staging'
-		}
+		   branch 'prakashul-staging'
+         	}
 
       steps {
 		unstash 'dockerImage'
@@ -129,6 +129,7 @@ triggers { cron('*/1 * * * *') }
 	
 
 }
+}
 	stage("deploy_on_production") {
       	 agent any
 	 when {
@@ -149,5 +150,4 @@ triggers { cron('*/1 * * * *') }
             // junit 'target/surefire-reports/*.xml'
         }
     }
-}
 }
