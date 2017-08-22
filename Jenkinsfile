@@ -38,23 +38,33 @@ triggers { cron('*/2 * * * *') }
             }
                           }
 
-	stage("build_artifact") {
+
+
+	stage("build_only_artifact") {
         agent { docker "maven:3-jdk-8" }
-//	when {
-  //              expression { params.REQUESTED_ACTION == 'prakashul-qa' }
-    //        }
-            steps {
+                steps {
                 sh 'mvn package'
                 sh 'ls -R *'
+                                }
 
-                  }
+
+                }
+
+	stage("archive_artifact") {
+        agent { docker "maven:3-jdk-8" }
+
 	when {
 		branch 'prakashul-qa' 
 		}
 		steps {
-			archive "target/**/*"
-				}
+                archive "target/**/*"
+                                }
+
+
                 }
+
+
+
 
     stage("build_push_image") {
 
