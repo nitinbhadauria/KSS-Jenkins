@@ -112,7 +112,6 @@ triggers { cron('*/1 * * * *') }
 		script {
 		docker.push('prakashul/knowledgemeet:prakashul-staging')
 			}
-																}
 		input 'Do you want to proceed to pushing the docker image to production?'
 		script {
 		 try {
@@ -125,6 +124,7 @@ triggers { cron('*/1 * * * *') }
                 err.printStackTrace()
                                                 }
 
+}
 	}
 	
 
