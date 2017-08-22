@@ -99,11 +99,18 @@ triggers { cron('*/1 * * * *') }
 }
 }
 
-    stage("deploy") {
+    stage("push_image_to_production") {
       agent any
+	when {
+		branch 'staging'
+		docker.push('production')
+		}
+
       steps {
-        sh '. /var/lib/jenkins/deploy.sh'
+
+	
       }
+	
 
     }
 
