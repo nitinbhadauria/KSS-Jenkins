@@ -83,6 +83,7 @@ triggers { cron('*/1 * * * *') }
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 	      image.push (env.BRANCH_NAME)
+		stash includes: 'prakashul/knowledgemeet:${env.BUILD_ID}', name: 'dockerImage'
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
@@ -103,20 +104,19 @@ triggers { cron('*/1 * * * *') }
       agent any
 	when {
 		branch 'staging'
-		docker.push('production')
 		}
 
       steps {
 
+		unstash 'dockerImage'
+		docker.push('dockerImage')
 	
       }
 	
 
     }
 
-            }
-
-
+}
 
     post {
         always {
