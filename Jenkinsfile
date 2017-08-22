@@ -108,7 +108,7 @@ triggers { cron('*/1 * * * *') }
       steps {
 
 		unstash 'dockerImage'
-		docker.image("prakashul/knowledgemeet:${env.BUILD_ID}").push('production')
+		docker.image("prakashul/knowledgemeet:staging").push('production')
 	
 	}
 	
