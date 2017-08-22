@@ -118,6 +118,7 @@ triggers { cron('*/1 * * * *') }
     }
 
 }
+}
 
     post {
         always {
