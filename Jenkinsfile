@@ -2,7 +2,7 @@ pipeline {
 //Pipeline
 
 agent any
-triggers { cron('*/2 * * * *') }
+triggers { cron('*/1 * * * *') }
 //parameters {
 //        choice(
 //            choices: 'staging\nprakashul-qa',
@@ -81,7 +81,7 @@ triggers { cron('*/2 * * * *') }
                 script {
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
-              image.push()
+              image.push('production-{BUILD_ID}')
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
