@@ -109,9 +109,10 @@ triggers { cron('*/1 * * * *') }
       steps {
 
 		unstash 'dockerImage'
+		script {
 		docker.push('dockerImage')
-	
-      }
+			}
+	}
 	
 
     }
