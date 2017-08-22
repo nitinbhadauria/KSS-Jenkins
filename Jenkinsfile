@@ -5,7 +5,7 @@ agent any
 triggers { cron('*/1 * * * *') }
 //parameters {
 //        choice(
-//            choices: 'staging\nprakashul-qa',
+//            choices: 'prakashul-staging\nprakashul-qa',
 //            description: '',
 //            name: 'REQUESTED_ACTION')
 //}
@@ -103,14 +103,14 @@ triggers { cron('*/1 * * * *') }
     stage("push_image_to_production") {
       agent any
 	when {
-		branch 'staging'
+		branch 'prakashul-staging'
 		}
 
       steps {
 		unstash 'dockerImage'
 		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
 		script {
-		docker.push('prakashul/knowledgemeet:staging')
+		docker.push('prakashul/knowledgemeet:prakashul-staging')
 			}
 																}
 		input 'Do you want to proceed to pushing the docker image to production?'
@@ -132,7 +132,7 @@ triggers { cron('*/1 * * * *') }
 	stage("deploy_on_production") {
       	 agent any
 	 when {
-		branch 'staging'
+		branch 'prakashul-staging'
 		}
 	
       steps {
