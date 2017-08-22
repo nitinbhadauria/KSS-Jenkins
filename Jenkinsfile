@@ -80,7 +80,7 @@ triggers { cron('*/2 * * * *') }
 
                 script {
         // we give the image the same version as the .war package
-              def image = docker.build("prakashul/knowledgemeet:${env.BRANCH}",'.')
+              def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
               image.push()
 
         try {
