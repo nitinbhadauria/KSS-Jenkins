@@ -71,7 +71,7 @@ triggers { cron('*/1 * * * *') }
 
 	when {
 	  expression {
-	    return env.BRANCH_NAME != "production"
+	    return env.BRANCH_NAME == "production"
 	  }
 	}
         steps {
@@ -82,8 +82,7 @@ triggers { cron('*/1 * * * *') }
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 		stash 
-	      image.push ('staging')
-              image.push('production')
+	      image.push (${env.BRANCH_NAME})
 
         try {
         timeout(time: 20, unit: 'SECONDS') {
