@@ -48,6 +48,12 @@ triggers { cron('*/2 * * * *') }
                 sh 'ls -R *'
 
                   }
+	when {
+		branch 'prakashul-qa' 
+		}
+		steps {
+			archive "target/**/*"
+				}
                 }
 
     stage("build_push_image") {
