@@ -99,9 +99,9 @@ agent any
 
       steps {
 		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
-	//	script {
-		docker.push('prakashul/knowledgemeet:prakashul-staging')
-	//		}
+		script {
+		docker.push('prakashul/knowledgemeet:prakashul-staging').('production')
+			}
 	}
 	
 		input 'Do you want to proceed to pushing the docker image to production?'
