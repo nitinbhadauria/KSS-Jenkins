@@ -104,11 +104,11 @@ agent any
 			}
 	}
 	
-		input 'Do you want to proceed to deploy Production?'
 		script {
                  try {
 
                         timeout(time: 20, unit: 'SECONDS') {
+		input 'Do you want to proceed to deploy Production?'
                                                                  }
                         }
         catch(err) {
