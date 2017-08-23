@@ -101,7 +101,7 @@ agent any
 		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
 		script {
 		def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
-		image.push (production)
+		image.push 'production'
 			}
 	}
 	
