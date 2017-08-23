@@ -129,6 +129,7 @@ agent any
 		}
 	
       steps {
+	milestone 1
         sh '. /var/lib/jenkins/deploy.sh'
       }
 
