@@ -51,18 +51,18 @@ agent any
 
                 }
 
-	stage("archive_artifact") {
-        agent { docker "maven:3-jdk-8" }
+//	stage("archive_artifact") {
+  //      agent { docker "maven:3-jdk-8" }
 
-	when {
-		branch 'prakashul-qa' 
-		}
-		steps {
-                archive "target/**/*"
-                                }
+//	when {
+//		branch 'prakashul-qa' 
+//		}
+//		steps {
+  //              archive "target/**/*"
+    //                            }
 
 
-                }
+      //          }
 
 
     stage("build_image") {
