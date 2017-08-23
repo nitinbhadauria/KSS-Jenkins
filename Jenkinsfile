@@ -127,9 +127,9 @@ agent any
 	 when {
 		branch 'prakashul-staging'
 		}
-	milestone 1	
       steps {
         sh '. /var/lib/jenkins/deploy.sh'
+	milestone 1	
       }
 
     }
