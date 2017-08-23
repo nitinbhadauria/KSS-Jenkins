@@ -98,7 +98,12 @@ triggers { cron('*/1 * * * *') }
          	}
 
       steps {
-		
+		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
+		script {
+		docker.push('prakashul/knowledgemeet:prakashul-staging')
+			}
+	}
+	
 		input 'Do you want to proceed to pushing the docker image to production?'
 		script {
                  try {
@@ -113,13 +118,6 @@ triggers { cron('*/1 * * * *') }
 
 }
 
-		unstash 'dockerImage'
-		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
-		script {
-		docker.push('prakashul/knowledgemeet:prakashul-staging')
-			}
-	}
-	
 
 }
 }
