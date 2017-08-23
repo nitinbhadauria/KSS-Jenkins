@@ -84,19 +84,10 @@ triggers { cron('*/1 * * * *') }
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 	      image.push (env.BRANCH_NAME)
 
-        try {
-	
-        timeout(time: 20, unit: 'SECONDS') {
-        }
-  }
-        catch(err) {
-		echo "Image push took long or there was an error"
-                err.printStackTrace()
                                                 }
-		echo "Continuing..."
+		echo "Image Build and Pushed"
                }
 
-}
 }
 }
 
@@ -107,24 +98,26 @@ triggers { cron('*/1 * * * *') }
          	}
 
       steps {
-		unstash 'dockerImage'
-		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
-		script {
-		docker.push('prakashul/knowledgemeet:prakashul-staging')
-			}
+		
 		input 'Do you want to proceed to pushing the docker image to production?'
 		script {
-		 try {
-        
-		        timeout(time: 20, unit: 'SECONDS') {
-       								 }			
-  			}
-        catch(err) { 
+                 try {
+
+                        timeout(time: 20, unit: 'SECONDS') {
+                                                                 }
+                        }
+        catch(err) {
                 echo "Deploy To Production was not approved"
                 err.printStackTrace()
                                                 }
 
 }
+
+		unstash 'dockerImage'
+		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
+		script {
+		docker.push('prakashul/knowledgemeet:prakashul-staging')
+			}
 	}
 	
 
