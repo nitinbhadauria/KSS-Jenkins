@@ -2,7 +2,7 @@ pipeline {
 //Pipeline
 
 agent any
-triggers { cron('*/1 * * * *') }
+//triggers { cron('*/1 * * * *') }
 //parameters {
 //        choice(
 //            choices: 'prakashul-staging\nprakashul-qa',
