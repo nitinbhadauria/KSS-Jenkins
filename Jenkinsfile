@@ -80,15 +80,15 @@ triggers { cron('*/1 * * * *') }
               withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
 
                 script {
+        	try {
+
+        		timeout(time: 20, unit: 'SECONDS') {
         // we give the image the same version as the .war package
               def image = docker.build("prakashul/knowledgemeet:${env.BUILD_ID}",'.')
 	      image.push (env.BRANCH_NAME)
 
-        try {
-	
-        timeout(time: 20, unit: 'SECONDS') {
-        }
   }
+	}
         catch(err) {
 		echo "Image push took long or there was an error"
                 err.printStackTrace()
@@ -110,14 +110,13 @@ triggers { cron('*/1 * * * *') }
 		unstash 'dockerImage'
 		withDockerRegistry([credentialsId: 'b6ef8f34-268d-4a12-a02f-c0eb8bf002ec', url: "https://hub.docker.com/"]) {
 		script {
-		docker.push('prakashul/knowledgemeet:prakashul-staging')
-			}
-																}
-		input 'Do you want to proceed to pushing the docker image to production?'
+		docker.push('prakashul/knowledgemeet:production')
+			}}
 		script {
 		 try {
         
 		        timeout(time: 20, unit: 'SECONDS') {
+			input 'Do you want to proceed to deploying the docker image to production?'
        								 }			
   			}
         catch(err) { 
