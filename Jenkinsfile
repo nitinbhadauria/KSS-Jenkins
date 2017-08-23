@@ -139,8 +139,9 @@ agent any
 
     post {
         always {
+	     agent { docker "maven:3-jdk-8" }
             archive "target/**/*.jar"
-            // junit 'target/surefire-reports/*.xml'
+             junit 'target/surefire-reports/*.xml'
         }
     }
 }
